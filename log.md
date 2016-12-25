@@ -7,3 +7,11 @@
         cout << "i=" << i << endl;
     }
 ```
+
+解決辦法，使用
+
+```cpp
+    for(unsigned i = 3; i > 0; --i) {
+        cout << "i=" << i-1 << endl;
+    }
+```
