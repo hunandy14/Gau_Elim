@@ -5,6 +5,9 @@ By   : CharlotteHonG
 Final: 2016/12/25
 *****************************************************************/
 #ifndef GAU_ELIM_HPP
+#define GAU_ELIM_HPP
+
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
@@ -97,5 +100,5 @@ private:
 };
 } // gau
 
-#define GAU_ELIM_HPP
+
 #endif
