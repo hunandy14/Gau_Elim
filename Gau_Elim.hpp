@@ -16,6 +16,8 @@ using namespace std;
 namespace gau {
 class Gau_Elim{
 public:
+    #define len this->matrix[0].size()
+    #define lay this->matrix.size()
     using size_type=typename vector<double>::size_type;
     // «Øºc¤l
     Gau_Elim(initializer_list<vector<double>> arr): matrix{arr} {}

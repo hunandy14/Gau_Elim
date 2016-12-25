@@ -7,8 +7,6 @@ Final: 2016/12/25
 #include "Gau_Elim.hpp"
 
 namespace gau {
-    #define len this->matrix[0].size()
-    #define lay this->matrix.size()
     // 正向消去
     void Gau_Elim::forward(size_type n){
         // 依階層消去

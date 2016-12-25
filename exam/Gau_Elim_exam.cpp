@@ -9,12 +9,11 @@ Final: 2016/12/25
 #include <initializer_list>
 #include <vector>
 using namespace std;
-
-#define len v[0].size()
-#define lay v.size()
 /*==============================================================*/
 class Gau_Elim{
 public:
+    #define len v[0].size()
+    #define lay v.size()
     using size_type=typename vector<double>::size_type;
     Gau_Elim(initializer_list<vector<double>> arr): v(arr){}
 public:
