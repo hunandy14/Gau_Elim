@@ -5,6 +5,7 @@ By   : CharlotteHonG
 Final: 2016/12/25
 *****************************************************************/
 #include "Gau_Elim.hpp"
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -17,7 +18,7 @@ namespace gau {
     void Gau_Elim::forward(size_t n){
         // 依階層消去
         for(unsigned i = 0; i < n; ++i) {
-            this->sub(n, i);
+            this->sub(n, i, -1);
             this->info();
         }
         this->nlz(n);
@@ -26,7 +27,7 @@ namespace gau {
     void Gau_Elim::reverse(size_t n){
         size_t len = this->matrix.size();
         for(unsigned i = n+1; i < len; ++i) {
-            this->sub(n, i);
+            this->sub(n, i, -1);
             this->info();
         }
         this->nlz(n);
@@ -87,4 +88,5 @@ namespace gau {
             this->matrix[n][i] *= (in/out);
         }
     }
+    
 } // gau

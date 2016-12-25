@@ -11,6 +11,7 @@ Final: 2016/12/25
 *****************************************************************/
 #include <iostream>
 #include "Gau_Elim.hpp"
+#include "Gau_Elim.cpp"// gcc ≥Ê¿…Ωsƒ∂
 using namespace std;
 using namespace gau;
 /*==============================================================*/
