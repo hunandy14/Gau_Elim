@@ -73,7 +73,7 @@ int main(int argc, char const *argv[]){
     // 正向消去
     for(unsigned i = 0; i < 3; ++i) {
         a.forward(i);
-    }a.info();
+    } a.info();
     // 反向帶入
     for(unsigned i = 3; i > 0; --i) {
         a.reverse(i-1);
