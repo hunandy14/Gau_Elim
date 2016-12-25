@@ -6,14 +6,9 @@ Final: 2016/12/25
 *****************************************************************/
 #include "Gau_Elim.hpp"
 
-#include <iostream>
-#include <iomanip>
-#include <vector>
-#include <initializer_list>
-
-using namespace std;
-
 namespace gau {
+    #define len this->matrix[0].size()
+    #define lay this->matrix.size()
     // 正向消去
     void Gau_Elim::forward(size_t n){
         // 依階層消去
@@ -25,8 +20,7 @@ namespace gau {
     }
     // 反向帶入
     void Gau_Elim::reverse(size_t n){
-        size_t len = this->matrix.size();
-        for(unsigned i = n+1; i < len; ++i) {
+        for(unsigned i = n+1; i < lay; ++i) {
             this->sub(n, i, -1);
             this->info();
         }
@@ -45,7 +39,7 @@ namespace gau {
     // 正規化(最高次方化簡為1)
     void Gau_Elim::nlz(size_t n){
         // 輸入錯誤
-        if (n>=this->matrix.size())
+        if (n>=lay)
             return;
         // 最高次方
         size_t idx = this->high(n);
@@ -60,29 +54,28 @@ namespace gau {
     // 相減 a-b (b適應a)
     void Gau_Elim::sub(size_t a, size_t b, int idx=-1){
         // 輸入錯誤
-        size_t len = this->matrix.size();
-        if (a>=len or b>=len)
+        if (a>=lay or b>=lay)
             return;
         // 找b最高次方
-        if (idx < 0 or idx >= (int)this->matrix[0].size())
+        if (idx < 0 or idx >= (int)len)
             idx = this->high(b);
         // 最高次方相差的比率
         double ratio = matrix[a][idx] / matrix[b][idx];
         // 通分後相減
-        for (unsigned i = 0; i < matrix[0].size(); ++i)
+        for (unsigned i = 0; i < len; ++i)
             this->matrix[a][i] -= this->matrix[b][i]*ratio;
     }
     // 找最高次方
     size_t Gau_Elim::high(size_t n){
-        for (unsigned i = 0; i < this->matrix[0].size(); ++i)
+        for (unsigned i = 0; i < len; ++i)
             if (matrix[n][i] != 0)
                 return i;
         // 回傳長度表示錯誤
-        return this->matrix[0].size();
+        return len;
     }
     // 調整倍率
     void Gau_Elim::zoom(size_t n, double in=1, double out=1){
-        for (unsigned i = 0; i < this->matrix[n].size(); ++i){
+        for (unsigned i = 0; i < len; ++i){
             if (this->matrix[n][i]==0)
                 ++i;
             this->matrix[n][i] *= (in/out);
