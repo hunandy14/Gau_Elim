@@ -16,25 +16,27 @@ using namespace std;
 namespace gau {
 class Gau_Elim{
 public:
+    using size_type=typename vector<double>::size_type;
     // 建構子
     Gau_Elim(initializer_list<vector<double>> arr): matrix{arr} {}
     Gau_Elim(vector<vector<double>> arr): matrix{arr} {}
+public:
     // 正向消去
-    void forward(size_t n);
+    void forward(size_type n);
     // 反向帶入
-    void reverse(size_t n);
+    void reverse(size_type n);
     // 印出
     void info();
 
 private:
     // 正規化(最高次方化簡為1)
-    void nlz(size_t n);
+    void nlz(size_type n);
     // 相減 a-b (b適應a)
-    void sub(size_t a, size_t b, int idx);
+    void sub(size_type a, size_type b, int idx);
     // 找最高次方
-    size_t high(size_t n);
+    size_type high(size_type n);
     // 調整倍率
-    void zoom(size_t n, double in, double out);
+    void zoom(size_type n, double in, double out);
 
 private:
     // 成員

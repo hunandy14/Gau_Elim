@@ -10,7 +10,7 @@ namespace gau {
     #define len this->matrix[0].size()
     #define lay this->matrix.size()
     // 正向消去
-    void Gau_Elim::forward(size_t n){
+    void Gau_Elim::forward(size_type n){
         // 依階層消去
         for(unsigned i = 0; i < n; ++i) {
             this->sub(n, i, -1);
@@ -19,7 +19,7 @@ namespace gau {
         this->nlz(n);
     }
     // 反向帶入
-    void Gau_Elim::reverse(size_t n){
+    void Gau_Elim::reverse(size_type n){
         for(unsigned i = n+1; i < lay; ++i) {
             this->sub(n, i, -1);
             this->info();
@@ -37,12 +37,12 @@ namespace gau {
 
     
     // 正規化(最高次方化簡為1)
-    void Gau_Elim::nlz(size_t n){
+    void Gau_Elim::nlz(size_type n){
         // 輸入錯誤
         if (n>=lay)
             return;
         // 最高次方
-        size_t idx = this->high(n);
+        size_type idx = this->high(n);
         // 已經為最簡離開
         if (this->matrix[n][idx]==1)
             return;
@@ -52,7 +52,7 @@ namespace gau {
         return;
     }
     // 相減 a-b (b適應a)
-    void Gau_Elim::sub(size_t a, size_t b, int idx=-1){
+    void Gau_Elim::sub(size_type a, size_type b, int idx=-1){
         // 輸入錯誤
         if (a>=lay or b>=lay)
             return;
@@ -66,7 +66,7 @@ namespace gau {
             this->matrix[a][i] -= this->matrix[b][i]*ratio;
     }
     // 找最高次方
-    size_t Gau_Elim::high(size_t n){
+    Gau_Elim::size_type Gau_Elim::high(size_type n){
         for (unsigned i = 0; i < len; ++i)
             if (matrix[n][i] != 0)
                 return i;
@@ -74,7 +74,7 @@ namespace gau {
         return len;
     }
     // 調整倍率
-    void Gau_Elim::zoom(size_t n, double in=1, double out=1){
+    void Gau_Elim::zoom(size_type n, double in=1, double out=1){
         for (unsigned i = 0; i < len; ++i){
             if (this->matrix[n][i]==0)
                 ++i;

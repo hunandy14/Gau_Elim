@@ -15,13 +15,15 @@ using namespace std;
 /*==============================================================*/
 class Gau_Elim{
 public:
+    using size_type=typename vector<double>::size_type;
     Gau_Elim(initializer_list<vector<double>> arr): v(arr){}
-    void forward(size_t n){
+public:
+    void forward(size_type n){
         for(unsigned i = 0; i < n; ++i) {
             this->sub(n, i);
         }this->nlz(n);
     }
-    void reverse(size_t n){
+    void reverse(size_type n){
         for(unsigned i = n+1; i < lay; ++i) {
             this->sub(n, i);
         }this->nlz(n);
@@ -34,24 +36,24 @@ public:
         }cout << endl;
     }
 private:
-    void nlz(size_t n){
+    void nlz(size_type n){
         this->zoom(n, 1, v[n][this->high(n)]);
     }
-    void sub(size_t a, size_t b){
-        size_t idx = this->high(b);
+    void sub(size_type a, size_type b){
+        size_type idx = this->high(b);
         double ratio = v[a][idx]/ v[b][idx];
         for(unsigned i = 0; i < len; ++i) {
             v[a][i] -= v[b][i]*ratio;
         }
     }
-    size_t high(size_t n){
+    size_type high(size_type n){
         for(unsigned i = 0; i < len; ++i) {
             if (v[n][i]!=0){
                 return i;
             }
         }return len;
     }
-    void zoom(size_t n, double in, double out){
+    void zoom(size_type n, double in, double out){
         for(unsigned i = 0; i < len; ++i) {
             if (v[n][i]==0)
                 ++i;
@@ -67,14 +69,14 @@ int main(int argc, char const *argv[]){
         {2, 3, -1, -2}, 
         {1, -1, 1, 8}, 
         {3, -2, -9, 9}
-    };
+    };a.info();
     // 正向消去
-    for(unsigned i = 0; i < 3; ++i) 
+    for(unsigned i = 0; i < 3; ++i) {
         a.forward(i);
-    a.info();
+    }a.info();
     // 反向帶入
-    for(unsigned i = 3; i > 0; --i)
+    for(unsigned i = 3; i > 0; --i) {
         a.reverse(i-1);
-    a.info();
+    } a.info();
     return 0;
 }
