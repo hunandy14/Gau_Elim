@@ -1,81 +1,75 @@
 /*****************************************************************
 Name : 
-Date : 2016/12/25
+Date : 2016/12/26
 By   : CharlotteHonG
-Final: 2016/12/25
+Final: 2016/12/26
 *****************************************************************/
 #include <iostream>
-#include <iomanip>
-#include <initializer_list>
 #include <vector>
+#include <initializer_list>
+#include <iomanip>
 using namespace std;
-/*==============================================================*/
-class Gau_Elim{
+//----------------------------------------------------------------
+class Gau_Elim {
 public:
-    #define len v[0].size()
-    #define lay v.size()
-    using size_type=typename vector<double>::size_type;
+    using size_type = typename vector<double>::size_type;
+    #define len this->v[0].size()
+    #define lay this->v.size()
     Gau_Elim(initializer_list<vector<double>> arr): v(arr){}
 public:
-    void forward(size_type n){
+    void foward(size_type n){
         for(unsigned i = 0; i < n; ++i) {
-            this->sub(n, i);
-        }this->nlz(n);
+            sub(n, i);
+        } nlz(n);
     }
-    void reverse(size_type n){
-        for(unsigned i = n+1; i < lay; ++i) {
-            this->sub(n, i);
-        }this->nlz(n);
+    void revers(size_type n){
+        for(unsigned i = n+1; i < lay ; ++i) {
+            sub(n, i);
+        } nlz(n);
     }
     void info(){
-        for(auto&& j : v) {
-            for(auto&& i : j) {
+        for(auto&& j : v){
+            for(auto&& i : j){
                 cout << setw(6) << i;
-            }cout << endl;
-        }cout << endl;
+            } cout << endl;
+        } cout << endl;
     }
 private:
+    void sub(size_type n, size_type n2){
+        double ratio = v[n][max(n2)]/v[n2][max(n2)];
+        for(unsigned i = 0; i < len; ++i)
+            v[n][i] -= v[n2][i]*ratio;
+    }
     void nlz(size_type n){
-        this->zoom(n, 1, v[n][this->high(n)]);
-    }
-    void sub(size_type a, size_type b){
-        size_type idx = this->high(b);
-        double ratio = v[a][idx]/ v[b][idx];
-        for(unsigned i = 0; i < len; ++i) {
-            v[a][i] -= v[b][i]*ratio;
-        }
-    }
-    size_type high(size_type n){
-        for(unsigned i = 0; i < len; ++i) {
-            if (v[n][i]!=0){
-                return i;
-            }
-        }return len;
+        zoom(n, 1, v[n][max(n)]);
     }
     void zoom(size_type n, double in, double out){
-        for(unsigned i = 0; i < len; ++i) {
-            if (v[n][i]==0)
-                ++i;
+        for(unsigned i = 0; i < len; ++i) 
             v[n][i] *= (in/out);
-        }
+    }
+    size_type max(size_type n){
+        for(unsigned i=0; i<len ;++i)
+            if(v[n][i]!=0)
+                return i;
+        return len;
     }
 private:
-    vector<vector<double>> v;  
+    vector<vector<double>> v;
 };
 //----------------------------------------------------------------
 int main(int argc, char const *argv[]){
     Gau_Elim a{
-        {2, 3, -1, -2}, 
-        {1, -1, 1, 8}, 
-        {3, -2, -9, 9}
+        {2,3,-1,-2},
+        {1,-1,1,8},
+        {3,-2,-9,9}
     };a.info();
     // 正向消去
-    for(unsigned i = 0; i < 3; ++i) {
-        a.forward(i);
+    for(unsigned i = 0; i < 3; ++i){
+        a.foward(i);
     } a.info();
-    // 反向帶入
-    for(unsigned i = 3; i > 0; --i) {
-        a.reverse(i-1);
+    // 反向代入
+    for(unsigned i = 3; i > 0; --i){
+        a.revers(i-1);
     } a.info();
     return 0;
 }
